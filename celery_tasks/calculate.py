@@ -1,12 +1,10 @@
-from celery import Celery
+from celery_tasks.init_celery import celery
 from decimal import Decimal
 
-from services import data_api
+from data_api import data_api
 from services.models import Calculation
-from .config import db
-
-celery = Celery('mission', broker='amqp://guest:guest@localhost:5672')
-
+from services.config import db
+from constants.constants import STATUS_COMPLETED
 
 
 @celery.task
@@ -28,5 +26,5 @@ def calculate_by_rules(project_id):
     calculate = Decimal(eval(expression))
     db.session.add(calculation)
     db.session.commit()
-    data_api.AccessToProjects.put(project_id, 'completed')
+    data_api.AccessToProjects.put(project_id, STATUS_COMPLETED)
     return calculate

@@ -1,16 +1,17 @@
 from flask_restful import Resource
 from flask import jsonify, request
 from .models import Calculation
-from .mission import calculate_by_rules
+from celery_tasks.calculate import calculate_by_rules
 from .config import db
-from services.data_api import AccessToProjects
+from data_api.data_api import AccessToProjects
+from constants.constants import STATUS_IN_PROGRESS
 
 
 class Calculate(Resource):
     def post(self):
 
         calculate_by_rules.delay(request.json["project_id"])
-        AccessToProjects.put(request.json["project_id"], 'in progress')
+        AccessToProjects.put(request.json["project_id"], STATUS_IN_PROGRESS)
 
 
 class Results(Resource):
