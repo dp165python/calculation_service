@@ -1,6 +1,6 @@
-from .config import create_app
-from .api import api_blueprint, api
-from .resources import Calculate, Results
+from services.config import create_app
+from services.api import api_blueprint, api
+from services.resources import Calculate, Results
 
 app = create_app()
 
