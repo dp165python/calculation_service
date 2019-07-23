@@ -1,8 +1,10 @@
+psycopg2-binary
 Flask==1.0.3
 Flask-Migrate==2.5.2
 Flask-RESTful==0.3.7
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.0
 marshmallow==2.19.5
-psycopg2==2.8.3
-Celery==4.1.1
+Flask-Marshmallow
+celery
+requests
